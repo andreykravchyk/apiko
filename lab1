@@ -1,0 +1,59 @@
+ let students = [
+        {firstName: 'Віталік', lastName:  'Пуцька', ratting:   '60'},
+        {firstName: 'Влад', lastName:  'Колобок', ratting: '78'},
+        {firstName: 'Саша', lastName:  'Конопелько', ratting: '80'},
+        {firstName: 'Макс', lastName:  'Шевченко', ratting: '80',},
+        {firstName: 'Діма', lastName:  'Курчма', ratting: '85',},
+        {firstName: 'Нікіта', lastName:  'Порошенко', ratting: '79',},
+        {firstName: 'Рома', lastName:  'Іваненко', ratting: '100',},
+        {firstName: 'Олег', lastName:  'Петросян', ratting: '60',},
+        {firstName: 'Любомир', lastName:  'Пес', ratting: '80',},
+    ]
+
+    const sortObj = (arr, prop) => {
+        let compare = (a, b) => a[prop] > b[prop] ? 1 : a[prop] == b[prop] ? 0 : -1;
+        arr.sort(compare);
+    }
+
+    const compare = (arr, key, callback) => arr.reduce((prev, curr) =>
+        (callback(prev[key], curr[key]) ? prev : curr), {})[key];
+
+    const rateMin = compare(students, 'ratting', (a, b) => a < b);
+    const rateMax = compare(students, 'ratting', (a, b) => a > b);
+
+
+    function eewe () {
+        let sum=0;
+        for (const key in students){
+            sum += +students[key].ratting;
+        };
+        let eeve = Math.ceil(sum/students.length);
+        return eeve.toString();
+    }
+
+    function rate (){
+        for (const key in students) {
+            let value;
+            value = Math.round(((rateMax/students[key].ratting)*100)-100);
+            students[key].rate = value;
+        }
+    }
+    sortObj(students, 'firstName');
+    console.log(students);
+    console.log('\n')
+    sortObj(students, 'lastName');
+    console.log(students);
+    console.log('\n')
+    sortObj(students, 'ratting');
+    console.log(students);
+    console.log('\n');
+
+
+    console.log('Максимальне, мінімальне та середне значення'+'\n'+`Min value: ${rateMin}, max value: ${rateMax}`);
+    console.log(students.find(x => x.ratting === eeve()));
+    console.log(students.find(x => x.ratting === rateMin));
+    console.log(students.find(x => x.ratting === rateMax));
+
+    rate();
+    console.log('\n'+'Додавання поля rate: ')
+    console.log(students);
